@@ -21,3 +21,15 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+/public
+/src
+/.browserslistrc
+/.editorconfig
+/.eslintrc.js
+/babel.config.js
+/LICENSE
+/package-lock.json
+/package.json
+/README.md
+/vue.config.js
