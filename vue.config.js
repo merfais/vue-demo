@@ -3,7 +3,7 @@ const path = require('path');
 const devServer = {
   port: 8000,
   watchOptions: {
-    poll: true,
+    // poll: true,
   },
   disableHostCheck: true,
 };
