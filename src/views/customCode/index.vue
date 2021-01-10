@@ -25,7 +25,11 @@
     </a-button>
   </div>
   <div class='panel preview-panel'>
+    <a-alert message="通过动态子组件的方式渲染" type="info" show-icon />
     <code-preview v-bind="previewData"/>
+    <a-divider style="margin: 24px 0 0 0"/>
+    <a-alert message="通过实例化Vue挂载DOM的方式渲染" type="info" show-icon />
+    <code-mount v-bind="previewData"/>
   </div>
 </div>
 </template>
@@ -33,6 +37,7 @@
 <script>
 import CodeEditor from '@/components/codeEditor';
 import CodePreview from '@/components/codePreview';
+import CodeMount from '@/components/codeMount';
 import {
   template,
   js,
@@ -44,6 +49,7 @@ export default {
   components: {
     CodeEditor,
     CodePreview,
+    CodeMount,
   },
   data() {
     return {
@@ -80,8 +86,16 @@ export default {
         template: this.tabs.template.value,
         js: this.tabs.js.value,
         css: this.tabs.css.value,
+        sed: Math.random(),
       }
     },
+  },
+  mounted() {
+    this.previewData = {
+      template: this.tabs.template.value,
+      js: this.tabs.js.value,
+      css: this.tabs.css.value,
+    }
   },
 }
 </script>
