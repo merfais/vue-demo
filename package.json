@@ -9,8 +9,12 @@
     "lint:fix": "NODE_ENV=production eslint -c ./.eslintrc.js --fix --ext js,jsx,vue --max-warnings=0 --no-error-on-unmatched-pattern ./"
   },
   "dependencies": {
+    "ant-design-vue": "^1.7.2",
+    "codemirror": "^5.59.1",
     "core-js": "^3.6.5",
+    "lodash": "^4.17.20",
     "vue": "^2.6.11",
+    "vue-codemirror": "^4.0.6",
     "vue-router": "^3.2.0",
     "vuex": "^3.4.0"
   },
@@ -25,6 +29,8 @@
     "eslint": "^6.7.2",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-vue": "^6.2.2",
+    "less": "^4.1.0",
+    "less-loader": "^7.2.1",
     "vue-template-compiler": "^2.6.11"
   }
 }

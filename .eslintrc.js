@@ -25,23 +25,32 @@ module.exports = {
 
     // 关闭的规则
     'vue/script-indent': 0,
+    'import/extensions': 0,
 
+    'arrow-parens': 0,
+    'arrow-body-style': 0,
+    'consistent-return': 0,
+    'function-paren-newline': 0,
+    'prefer-destructuring': 0,
     'prefer-promise-reject-errors': 0,
     'no-return-assign': 0,
+    semi: 0,
 
     // 开发时关闭的规则
-    'vue/html-indent': [level, 2],
+    'vue/html-indent': [level, 2, { baseIndent: 0, closeBracket: 1, alignAttributesVertically: false }],
     'vue/no-unused-components': level,
 
     'block-spacing': level,
     'brace-style': level,
     camelcase: level,
     'comma-spacing': level,
+    'comma-dangle': level,
     indent: [level, 2, { SwitchCase: 1 }],
     'key-spacing': level,
     'max-len': level,
     'no-console': [level, { allow: ['warn', 'error', 'info'] }],
     'no-debugger': level,
+    'no-empty': [level, { allowEmptyCatch: true }],
     'no-mixed-operators': level,
     'no-multiple-empty-lines': [level, { maxEOF: 2, max: 2, maxBOF: 1 }],
     'no-multi-spaces': [level, { ignoreEOLComments: true }],
@@ -53,21 +62,17 @@ module.exports = {
     'prefer-const': level,
     'padded-blocks': level,
     'quote-props': level,
-    semi: level,
     'spaced-comment': level,
     'space-before-blocks': level,
+    'space-before-function-paren': level,
     'space-infix-ops': level,
 
-    // 'arrow-parens': 0,
     // 'arrow-spacing': 1,
-    // 'arrow-body-style': 0,
     // camelcase: 0,
     // 'comma-dangle': [1, 'only-multiline'],
     // 'comma-spacing': 1,
-    // 'consistent-return': 0,
     // eqeqeq: 1,
     // 'func-names': [1, 'never'],
-    // 'function-paren-newline': [1, 'consistent'],
     // 'guard-for-in': 1,
     // 'key-spacing': 1,
     // 'keyword-spacing': 1,
@@ -82,9 +87,6 @@ module.exports = {
     //   },
     // ],
     // 'no-debugger': level,
-    // 'no-empty': [1, {
-    //   allowEmptyCatch: true
-    // }],
     // 'no-empty-function': 1,
     // 'no-trailing-spaces': [2, {
     //   skipBlankLines: true
@@ -110,7 +112,6 @@ module.exports = {
     // 'one-var-declaration-per-line': [1, 'initializations'],
     // 'prefer-arrow-callback': 0,
     // 'prefer-spread': 1,
-    // 'prefer-destructuring': 0,
     // quotes: [1, 'single', {
     //   avoidEscape: true,
     //   allowTemplateLiterals: true
