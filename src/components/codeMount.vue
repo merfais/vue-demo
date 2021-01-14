@@ -9,7 +9,6 @@ export default {
     template: String,
     js: String,
     css: String,
-    sed: Number,  // 用于传递点击事件
   },
   data() {
     return {
@@ -107,9 +106,6 @@ export default {
       // 当代码变化时，清空error，重绘
       this.subCompErr = null;
     },
-    sed() {
-      this.mounteCode()
-    },
   },
   methods: {
     checkVariableField(component) {
@@ -152,14 +148,19 @@ export default {
   },
   render() {
     const error = this.component.error || this.subCompErr;
-    const errorClassName = error ? 'error-msg-wrapper' : '';
+    let errorDom;
+    if (error) {
+      errorDom = <div class='error-msg-wrapper'
+        style={{ position: !this.component.error ? 'absolute' : '' }}
+      >
+        <div>{error.type}</div>
+        <div>{error.msg}</div>
+      </div>;
+    }
     return <div class={['code-preview-wrapper', this.className]}>
       <style>{this.scopedStyle}</style>
       <span id={this.uid} />
-      <div class={errorClassName}>
-        <div>{error && error.type}</div>
-        <div>{error && error.msg}</div>
-      </div>
+      {errorDom}
     </div>
   },
   mounted() {
@@ -173,11 +174,11 @@ export default {
   position: relative;
 
   .error-msg-wrapper {
-    position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
+    z-index: 1;
     background: #fff;
     color: red;
   }

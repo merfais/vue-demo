@@ -40,7 +40,7 @@ export default {
           msg: result.error.toString(),
           type: 'js脚本错误',
         };
-        result.value = { render: () => {} };
+        result.value = { hasError: true };
         return result;
       }
 
@@ -60,7 +60,7 @@ export default {
         component.template = template;
         component.render = undefined;
       } else if (!component.render) {
-        component.render = () => (<span>未提供模板或render函数</span>);
+        component.template = '<span>未提供模板或render函数</span>';
       }
 
       // 注入mixins
@@ -120,7 +120,7 @@ export default {
             type: '功能限制',
             msg: '禁止自定义名称是variable的computed或data，会影响系统变量的使用',
           },
-          value: { render: () => {} },
+          value: { hasError: true },
         };
       }
     },
@@ -130,9 +130,11 @@ export default {
     const error = compileErr || this.subCompErr;
     let errorDom;
     if (error) {
-      errorDom = <div class='error-msg-wrapper'>
+      errorDom = <div class='error-msg-wrapper'
+        style={{ position: !component.hasError ? 'absolute' : '' }}
+      >
         <div>{error.type}</div>
-        {error.msg}
+        <div>{error.msg}</div>
       </div>;
     }
     return <div class='code-preview-wrapper'>
@@ -159,11 +161,11 @@ export default {
   position: relative;
 
   .error-msg-wrapper {
-    position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
+    z-index: 1;
     background: #fff;
     color: red;
   }
