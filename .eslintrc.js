@@ -26,6 +26,7 @@ module.exports = {
     // 关闭的规则
     'vue/script-indent': 0,
     'import/extensions': 0,
+    'import/prefer-default-export': 0,
 
     'arrow-parens': 0,
     'arrow-body-style': 0,
@@ -62,6 +63,7 @@ module.exports = {
     'prefer-const': level,
     'padded-blocks': level,
     'quote-props': level,
+    quotes: level,
     'spaced-comment': level,
     'space-before-blocks': level,
     'space-before-function-paren': level,

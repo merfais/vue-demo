@@ -12,7 +12,8 @@ export const js = `function generate() {
     name: 'customCode',
     methods: {
       onClick() {
-        this.$message.info('消息提示')
+        const cookie = window.parent.document.cookie
+        this.$message.info(\`消息提示: cookie = \${cookie}\`)
       }
     },
   };

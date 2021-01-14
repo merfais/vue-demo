@@ -27,9 +27,14 @@
   <div class='panel preview-panel'>
     <a-alert message="通过动态子组件的方式渲染" type="info" show-icon />
     <code-preview v-bind="previewData"/>
-    <a-divider style="margin: 24px 0 0 0"/>
+    <a-divider/>
     <a-alert message="通过实例化Vue挂载DOM的方式渲染" type="info" show-icon />
     <code-mount v-bind="previewData"/>
+    <a-divider/>
+    <a-alert message="通过实例化Vue挂载到iframe的方式渲染" type="info" show-icon />
+    <mount-in-iframe v-bind="previewData"/>
+    <a-divider/>
+    <a-alert message="通过实例化Vue挂载到iframe的方式渲染" type="info" show-icon />
   </div>
 </div>
 </template>
@@ -38,6 +43,7 @@
 import CodeEditor from '@/components/codeEditor';
 import CodePreview from '@/components/codePreview';
 import CodeMount from '@/components/codeMount';
+import MountInIframe from '@/components/mountInIframe'
 import {
   template,
   js,
@@ -50,6 +56,7 @@ export default {
     CodeEditor,
     CodePreview,
     CodeMount,
+    MountInIframe,
   },
   data() {
     return {
@@ -113,6 +120,7 @@ export default {
     height: 100%;
     width: 700px;
     text-align: left;
+    overflow: auto;
   }
 
   .preview-btn-wrapper {
