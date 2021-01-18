@@ -6,17 +6,163 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="favicon.ico">
     <title>I'm iframe</title>
-    <link href="https://cdn.bootcdn.net/ajax/libs/ant-design-vue/1.7.2/antd.min.css" rel="stylesheet">
-    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.min.js"></script>
-    <script defer src="https://cdn.bootcdn.net/ajax/libs/ant-design-vue/1.7.2/antd.min.js"></script>
     <script>
+      function onLoadVue() {
+        window.parent.postMessage({
+          event: 'mounted',
+          data: { vue: true },
+        }, '*')
+      }
+    </script>
+    <link href="https://cdn.bootcdn.net/ajax/libs/ant-design-vue/1.7.2/antd.min.css" rel="stylesheet">
+    <script defer src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.min.js"></script>
+    <script defer src="https://cdn.bootcdn.net/ajax/libs/ant-design-vue/1.7.2/antd.min.js" onload="onLoadVue()"></script>
+    <script>
+    function appendStyle(data, doc = document) {
+      const style = doc.createElement('style');
+      style.id = Math.random().toString(36).slice(2);
+      style.type = 'text/css';
+      style.appendChild(doc.createTextNode(data));
+      doc.head.appendChild(style);
+      return style.id;
+    }
+
+    function appendScript(data, doc = document) {
+      const script = doc.createElement('script');
+      script.id = Math.random().toString(36).slice(2);
+      script.type = 'text/javascript';
+      script.appendChild(doc.createTextNode(data));
+      doc.head.appendChild(script);
+      return script.id;
+    }
+
+    function prependDom(data, doc = document) {
+      const tag = typeof data === 'string' ? data : data.tag;
+      const dom = doc.createElement(tag);
+      Object.assign(dom, data)
+      doc.body.prepend(dom);
+    }
+
+    function appendDom(data, doc = document) {
+      const tag = typeof data === 'string' ? data : data.tag;
+      const dom = doc.createElement(tag);
+      Object.assign(dom, data)
+      doc.body.appendChild(dom);
+    }
+
+    function removeElement(id, doc = document) {
+      if (!id) {
+        return
+      }
+      const ele = doc.getElementById(id);
+      if (ele) {
+        ele.parentNode.removeChild(ele);
+      }
+    }
+
+    function newFn(code) {
+      try {
+        return new Function(`return ${code}`)()
+        // eval(`var tmp = ${code}`)
+        // return tmp
+      } catch (e) {}
+      try {
+        return new Function(`return function ${code}`)()
+        // eval(`var tmp = function ${code}`)
+        // return tmp
+      } catch(e) {}
+    }
+
+    function deserialize(data) {
+      if (Object.prototype.toString.call(data) === '[object Object]') {
+        const result = {}
+        Object.keys(data).forEach((key) => {
+          result[key] = this.deserialize(data[key])
+        });
+        return result;
+      }
+      if (typeof data === 'string') {
+        const str = decodeURI(data)
+        const matched = str.match(/^##([^#]*)##$/)
+        if (matched) {
+          return newFn(matched[1]);
+        }
+        return data;
+      }
+      if (Array.isArray(data)) {
+        return data.map(item => this.deserialize(item))
+      }
+      return data;
+    }
+
+    function mountComponent(component, css = '') {
+      removeElement(window._styleId);
+      window._styleId = appendStyle(css);
+      if (document.body.firstElementChild) {
+        document.body.removeChild(document.body.firstElementChild);
+      }
+      removeElement(window._err_id);
+      prependDom({ tag: 'div', id: 'app' })
+      new Vue(component).$mount('#app')
+    }
+
+    function receiveMessage(event) {
+      let msg = event.data;
+      if (msg.event === 'mount' && msg.component) {
+        const component = deserialize(msg.component)
+        if (component
+          && (component.template || component.render)
+        ) {
+          mountComponent(component, msg.css || '')
+        }
+      }
+    }
+
+    function renderError(error) {
+      const { type, msg } = error || {};
+      const component = {
+        template: `<div id='${window._err_id}'><div>${type}</div><div>${msg}</div></div>`,
+      }
+      removeElement(window._err_id)
+      appendDom({ tag: 'div', id: window._err_id })
+      new Vue(component).$mount(`#${window._err_id}`)
+    }
+
+    window._vmid = Math.random().toString(36).slice(2)
+    window._err_id = `${window._vmid}_runtime_error`
+    appendStyle(`
+      #${window._err_id} {
+        color: red;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #fff;
+      }
+    `)
+
     </script>
   </head>
   <body>
+    <div id="app"></div>
     <noscript>
       <strong>We're sorry but doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
+    <script>
+    const observer = new MutationObserver(() => {
+      const firstEle = document.body.firstElementChild
+      const rect = firstEle.getBoundingClientRect();
+      const marginTop = parseFloat(window.getComputedStyle(firstEle).marginTop, 10)
+      const marginBottom = parseFloat(window.getComputedStyle(firstEle).marginBottom, 10)
+      window.parent.postMessage({
+        event: 'mutationObserverBody',
+        data: { height: rect.height + marginTop + marginBottom },
+      }, '*')
+    });
+    observer.observe(document.body, { childList: true });
+
+    window.addEventListener("message", receiveMessage, false);
+    </script>
   </body>
 </html>

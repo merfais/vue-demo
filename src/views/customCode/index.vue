@@ -35,6 +35,8 @@
     <mount-in-iframe v-bind="previewData"/>
     <a-divider/>
     <a-alert message="通过实例化Vue挂载到iframe的方式渲染" type="info" show-icon />
+    <mount-in-iframe2 v-bind="previewData"/>
+    <a-divider/>
   </div>
 </div>
 </template>
@@ -44,6 +46,7 @@ import CodeEditor from '@/components/codeEditor';
 import CodePreview from '@/components/codePreview';
 import CodeMount from '@/components/codeMount';
 import MountInIframe from '@/components/mountInIframe'
+import MountInIframe2 from '@/components/mountInIframe2'
 import {
   template,
   js,
@@ -57,6 +60,7 @@ export default {
     CodePreview,
     CodeMount,
     MountInIframe,
+    MountInIframe2,
   },
   data() {
     return {
