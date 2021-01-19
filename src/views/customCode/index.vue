@@ -26,27 +26,27 @@
   </div>
   <div class='panel preview-panel'>
     <a-alert message="通过动态子组件的方式渲染" type="info" show-icon />
-    <code-preview v-bind="previewData"/>
+    <with-component v-bind="previewData"/>
     <a-divider/>
     <a-alert message="通过实例化Vue挂载DOM的方式渲染" type="info" show-icon />
-    <code-mount v-bind="previewData"/>
+    <with-mount v-bind="previewData"/>
     <a-divider/>
     <a-alert message="通过实例化Vue挂载到iframe的方式渲染" type="info" show-icon />
-    <mount-in-iframe v-bind="previewData"/>
+    <mount-same-iframe v-bind="previewData"/>
     <a-divider/>
     <a-alert message="通过实例化Vue挂载到iframe的方式渲染" type="info" show-icon />
-    <mount-in-iframe2 v-bind="previewData"/>
+    <mount-cross-iframe v-bind="previewData"/>
     <a-divider/>
   </div>
 </div>
 </template>
 
 <script>
-import CodeEditor from '@/components/codeEditor';
-import CodePreview from '@/components/codePreview';
-import CodeMount from '@/components/codeMount';
-import MountInIframe from '@/components/mountInIframe'
-import MountInIframe2 from '@/components/mountInIframe2'
+import CodeEditor from './codeEditor';
+import WithComponent from './withComponent';
+import WithMount from './withMount';
+import MountSameIframe from './mountSameIframe'
+import MountCrossIframe from './mountCrossIframe'
 import {
   template,
   js,
@@ -57,10 +57,10 @@ export default {
   name: '',
   components: {
     CodeEditor,
-    CodePreview,
-    CodeMount,
-    MountInIframe,
-    MountInIframe2,
+    WithComponent,
+    WithMount,
+    MountSameIframe,
+    MountCrossIframe,
   },
   data() {
     return {
@@ -101,6 +101,12 @@ export default {
       }
     },
   },
+  created() {
+    this.$store.commit('setState', {
+      filePath: 'views/customCode/index.vue',
+      pageName: '',
+    });
+  },
   mounted() {
     this.previewData = {
       template: this.tabs.template.value,
@@ -116,19 +122,18 @@ export default {
   display: flex;
   align-items: center;
   padding: 10px;
-  margin: 0 auto;
-  height: 100%;
+  flex-grow: 1;
 
   .panel {
     border: 1px solid #ccc;
     height: 100%;
-    width: 700px;
     text-align: left;
     overflow: auto;
+    flex-grow: 1;
   }
 
   .preview-btn-wrapper {
-    flex-grow: 1;
+    margin: 10px;
   }
 
   .tabs-wrapper {

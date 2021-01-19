@@ -141,8 +141,8 @@ export default {
     },
   },
   beforeCreate() {
-    window.addEventListener("message", (event) => {
-      let msg = event.data;
+    window.addEventListener('message', (event) => {
+      const msg = event.data;
       if (msg.event === 'mutationObserverBody' && msg.data && msg.data.height) {
         this.$refs.iframe.height = `${msg.data.height}px`
       } else if (msg.event === 'mounted' && msg.data && msg.data.vue) {
