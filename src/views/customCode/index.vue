@@ -42,16 +42,16 @@
 </template>
 
 <script>
-import CodeEditor from './codeEditor';
-import WithComponent from './withComponent';
-import WithMount from './withMount';
+import CodeEditor from './codeEditor'
+import WithComponent from './withComponent'
+import WithMount from './withMount'
 import MountSameIframe from './mountSameIframe'
 import MountCrossIframe from './mountCrossIframe'
 import {
   template,
   js,
   css,
-} from './service';
+} from './service'
 
 export default {
   name: '',
@@ -105,7 +105,7 @@ export default {
     this.$store.commit('setState', {
       filePath: 'views/customCode/index.vue',
       pageName: '',
-    });
+    })
   },
   mounted() {
     this.previewData = {
@@ -113,6 +113,11 @@ export default {
       js: this.tabs.js.value,
       css: this.tabs.css.value,
     }
+    setInterval(() => {
+      let { varA } = this.$store.state.variable.map
+      varA += 1
+      this.$store.commit('variable/setState', { map: { varA } })
+    }, 1000 * 10)
   },
 }
 </script>
