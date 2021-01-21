@@ -45,7 +45,7 @@ export default {
     onClickHome() {
       this.$router.push('/')
     },
-  }
+  },
 }
 </script>
 <style lang="less" scoped>

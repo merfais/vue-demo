@@ -9,8 +9,8 @@ import Banner from 'components/banner'
 
 export default {
   components: {
-    Banner
-  }
+    Banner,
+  },
 }
 </script>
 <style lang='less' scoped>
