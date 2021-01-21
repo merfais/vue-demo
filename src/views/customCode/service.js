@@ -3,6 +3,7 @@ export const template = `<template>
     <a-button @click="onClick">
       点我
     </a-button>
+    <span v-for="(item, key) in variable" :key="key">{{item}}</span>
   </div>
 </template>`
 
