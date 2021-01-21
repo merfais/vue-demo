@@ -28,7 +28,7 @@ export default {
     };
   },
   created() {
-    this.$store.commit('setState', { filePath: 'views/home.vue' });
+    this.$store.commit('setState', { filePath: '' });
   },
 };
 </script>

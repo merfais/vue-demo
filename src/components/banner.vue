@@ -21,6 +21,7 @@
     target="_blank"
     rel="noopener noreferrer"
     >
+    <a-icon class='github-icon' type="github" />
     欢迎 star，watch，follow 一键三连
   </a>
 </div>
@@ -37,6 +38,9 @@ export default {
   },
   computed: {
     filePath() {
+      if (!this.$store.state.filePath) {
+        return 'https://github.com/merfais/vue-demo'
+      }
       const prefix = 'https://github.com/merfais/vue-demo/blob/main/src/'
       return prefix + this.$store.state.filePath
     },
@@ -88,6 +92,11 @@ export default {
     border-bottom: 1px solid #1890ff;
     text-shadow: 1px 1px white, -1px -1px #444,
                   0.1em 0.1em 0.5em #333;
+  }
+
+  .github-icon {
+    font-size: 30px;
+    color: #555;
   }
 }
 </style>
