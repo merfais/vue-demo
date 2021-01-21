@@ -1,7 +1,7 @@
 <template>
 <iframe
   ref="iframe"
-  src='http://127.0.0.1:8000/iframe.html'
+  src='https://merfais.gitlab.io/static-page/iframe.html'
   frameborder="0"
   scrolling="no"
   width="100%"
