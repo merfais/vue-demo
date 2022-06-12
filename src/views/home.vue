@@ -24,6 +24,9 @@ export default {
       demoLinks: [{
         name: '在线编代码编辑，实时预览',
         link: '/custom-code',
+      }, {
+        name: '富文本编辑器QEditor',
+        link: '/q-editor',
       }],
     };
   },

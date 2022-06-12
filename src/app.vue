@@ -1,15 +1,16 @@
-<template>
-<div id="app">
-  <banner />
-  <router-view/>
-</div>
-</template>
 <script>
 import Banner from 'components/banner'
+import './assets/icofont.min.css'
 
 export default {
   components: {
     Banner,
+  },
+  render() {
+    return <div id="app">
+      <banner />
+      <router-view/>
+    </div>
   },
 }
 </script>

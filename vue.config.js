@@ -20,7 +20,8 @@ const chainWebpack = (config) => {
     .set('network', path.resolve(__dirname, 'src/network'))
     .set('utils', path.resolve(__dirname, 'src/utils'))
     .set('pages', path.resolve(__dirname, 'src/pages'))
-    .set('views', path.resolve(__dirname, 'src/views'));
+    .set('views', path.resolve(__dirname, 'src/views'))
+    .set('assets', path.resolve(__dirname, 'src/assets'));
 
   if (process.env.NODE_ENV === 'development') {
     config.devtool(false);

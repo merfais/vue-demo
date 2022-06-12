@@ -35,6 +35,8 @@ module.exports = {
     'prefer-destructuring': 0,
     'prefer-promise-reject-errors': 0,
     'no-return-assign': 0,
+    'no-lonely-if': 0,
+    'no-shadow': 0,
     semi: 0,
 
     // 开发时关闭的规则
@@ -105,7 +107,6 @@ module.exports = {
     // 'no-restricted-syntax': [1, 'DebuggerStatement'],
     // 'no-plusplus': [1, { allowForLoopAfterthoughts: true }],
     // 'no-param-reassign': 0,
-    // 'no-shadow': 0,
     // 'object-shorthand': 0,
     // 'object-curly-spacing': 1,
     // 'object-curly-newline': [1, { consistent: true }],

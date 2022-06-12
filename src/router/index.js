@@ -14,6 +14,11 @@ export const routes = [
     name: 'CustomCode',
     component: () => import(/* webpackChunkName customCode */ '@/views/customCode/index.vue'),
   },
+  {
+    path: '/q-editor',
+    name: 'qEditor',
+    component: () => import(/* webpackChunkName qEditor */ '@/views/qEditor/index.vue'),
+  },
 ];
 
 const router = new VueRouter({
